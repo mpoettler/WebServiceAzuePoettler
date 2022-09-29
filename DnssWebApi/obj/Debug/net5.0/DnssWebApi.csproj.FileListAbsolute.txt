@@ -115,7 +115,6 @@ C:\Users\mpoet\OneDrive\Desktop\ArbeitsZeuch#\WebServicePoettler\WebServiceDev\B
 C:\Users\mpoet\OneDrive\Desktop\ArbeitsZeuch#\WebServicePoettler\WebServiceDev\BackUP DNS\DnssWebApi\bin\Debug\net5.0\DnssWebApi.runtimeconfig.json
 C:\Users\mpoet\OneDrive\Desktop\ArbeitsZeuch#\WebServicePoettler\WebServiceDev\BackUP DNS\DnssWebApi\bin\Debug\net5.0\DnssWebApi.runtimeconfig.dev.json
 C:\Users\mpoet\OneDrive\Desktop\ArbeitsZeuch#\WebServicePoettler\WebServiceDev\BackUP DNS\DnssWebApi\bin\Debug\net5.0\DnssWebApi.dll
-C:\Users\mpoet\OneDrive\Desktop\ArbeitsZeuch#\WebServicePoettler\WebServiceDev\BackUP DNS\DnssWebApi\bin\Debug\net5.0\ref\DnssWebApi.dll
 C:\Users\mpoet\OneDrive\Desktop\ArbeitsZeuch#\WebServicePoettler\WebServiceDev\BackUP DNS\DnssWebApi\bin\Debug\net5.0\DnssWebApi.pdb
 C:\Users\mpoet\OneDrive\Desktop\ArbeitsZeuch#\WebServicePoettler\WebServiceDev\BackUP DNS\DnssWebApi\bin\Debug\net5.0\Microsoft.Extensions.DependencyModel.dll
 C:\Users\mpoet\OneDrive\Desktop\ArbeitsZeuch#\WebServicePoettler\WebServiceDev\BackUP DNS\DnssWebApi\bin\Debug\net5.0\Microsoft.Extensions.PlatformAbstractions.dll
@@ -138,7 +137,6 @@ C:\Users\mpoet\OneDrive\Desktop\ArbeitsZeuch#\WebServicePoettler\WebServiceDev\B
 C:\Users\mpoet\OneDrive\Desktop\ArbeitsZeuch#\WebServicePoettler\WebServiceDev\BackUP DNS\DnssWebApi\obj\Debug\net5.0\DnssWebApi.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\mpoet\OneDrive\Desktop\ArbeitsZeuch#\WebServicePoettler\WebServiceDev\BackUP DNS\DnssWebApi\obj\Debug\net5.0\DnssWebApi.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\mpoet\OneDrive\Desktop\ArbeitsZeuch#\WebServicePoettler\WebServiceDev\BackUP DNS\DnssWebApi\obj\Debug\net5.0\staticwebassets\DnssWebApi.StaticWebAssets.Manifest.cache
-C:\Users\mpoet\OneDrive\Desktop\ArbeitsZeuch#\WebServicePoettler\WebServiceDev\BackUP DNS\DnssWebApi\obj\Debug\net5.0\staticwebassets\DnssWebApi.StaticWebAssets.xml
 C:\Users\mpoet\OneDrive\Desktop\ArbeitsZeuch#\WebServicePoettler\WebServiceDev\BackUP DNS\DnssWebApi\obj\Debug\net5.0\scopedcss\bundle\DnssWebApi.styles.css
 C:\Users\mpoet\OneDrive\Desktop\ArbeitsZeuch#\WebServicePoettler\WebServiceDev\BackUP DNS\DnssWebApi\obj\Debug\net5.0\DnssWebApi.RazorTargetAssemblyInfo.cache
 C:\Users\mpoet\OneDrive\Desktop\ArbeitsZeuch#\WebServicePoettler\WebServiceDev\BackUP DNS\DnssWebApi\obj\Debug\net5.0\DnssWebApi.csproj.CopyComplete
@@ -146,3 +144,5 @@ C:\Users\mpoet\OneDrive\Desktop\ArbeitsZeuch#\WebServicePoettler\WebServiceDev\B
 C:\Users\mpoet\OneDrive\Desktop\ArbeitsZeuch#\WebServicePoettler\WebServiceDev\BackUP DNS\DnssWebApi\obj\Debug\net5.0\ref\DnssWebApi.dll
 C:\Users\mpoet\OneDrive\Desktop\ArbeitsZeuch#\WebServicePoettler\WebServiceDev\BackUP DNS\DnssWebApi\obj\Debug\net5.0\DnssWebApi.pdb
 C:\Users\mpoet\OneDrive\Desktop\ArbeitsZeuch#\WebServicePoettler\WebServiceDev\BackUP DNS\DnssWebApi\obj\Debug\net5.0\DnssWebApi.genruntimeconfig.cache
+C:\Users\mpoet\OneDrive\Desktop\ArbeitsZeuch#\WebServicePoettler\WebServiceDev\BackUP DNS\DnssWebApi\bin\Debug\net5.0\ref\DnssWebApi.dll
+C:\Users\mpoet\OneDrive\Desktop\ArbeitsZeuch#\WebServicePoettler\WebServiceDev\BackUP DNS\DnssWebApi\obj\Debug\net5.0\staticwebassets\DnssWebApi.StaticWebAssets.xml

@@ -17,10 +17,13 @@ namespace DnssWebApi
             CreateHostBuilder(args).Build().Run();
         }
 
-        public static IWebHostBuilder CreateHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                    .UseUrls(new string[] { "http://[::]:80", "https://[::]:443",
-                    "http://[::]:65432", "https://[::]:65431" })
-                    .UseStartup<Startup>();
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+    
+                });
+
     }
 }
