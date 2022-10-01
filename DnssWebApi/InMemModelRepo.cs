@@ -1,4 +1,6 @@
 ﻿using DnssWebApi.Model;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,51 +13,63 @@ namespace DnssWebApi
         {
             new AdmaModel
             {
-                Default = 123,
                 ID = 123,
-                Inaktiv = true,
                 Minimum = 123,
                 Maximum = 123,
-                Propertiers = "",
-                Type = "word",
-                Resolution = 123,
-                Unit = "word",
                 Value = 123
             }
         };
 
-        public async Task <IEnumerable<AdmaModel>> GetModels() => await Task.FromResult(models);
+        public IEnumerable<AdmaModel> GetModels() => (models);
 
-        public async Task<AdmaModel> GetModel(int id)
+        public AdmaModel GetModel(int id)
         {
             var model = models.SingleOrDefault(model => model.ID == id);
-            return await Task.FromResult(model);
+            return  (model);
         }
 
-        public async Task<AdmaModel> GetVersion(string type)
-        {
-            var model = models.Where(model => model.Type == type).SingleOrDefault();
-            return await Task.FromResult(model);
-        }
-
-        public async Task CreateModel(AdmaModel model)
+        public void CreateModel(AdmaModel model)
         {
             models.Add(model);
-            await Task.CompletedTask;
         }
 
-        public async Task UpdateModel(AdmaModel model)
+        public void  UpdateModel(AdmaModel model)
         {
             var index =  models.FindIndex(existingModel => existingModel.ID == model.ID);
             models[index] = model;
-            await Task.CompletedTask;
         }
 
-        public async Task DeleteModel(int id)
+        public void DeleteModel(int id)
         {
             var index = models.FindIndex(existingModel => existingModel.ID == id);
             models.RemoveAt(index);
-            await Task.CompletedTask;
+        }
+
+        public IEnumerable<AdmaModel> GetAllModels(IConfiguration configuration)
+        {
+            var models = new List<AdmaModel>();
+
+            using (var connection = new SqlConnection(configuration.GetConnectionString("WebServicePoettler")))
+            {
+                var sql = "SELECT id, Minimum, Maximum, Value from dbo.ModelTable";
+                connection.Open();
+                using SqlCommand command = new SqlCommand(sql, connection);
+                using SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var model = new AdmaModel()
+                    {
+                        ID = (int)reader["Id"],
+                        Minimum = (int)reader["Minimum"],
+                        Maximum = (int)reader["Maximum"],
+                        Value = (int)reader["Value"]
+                    };
+
+                    models.Add(model);
+                }
+            }
+            return models;
         }
     }
 }

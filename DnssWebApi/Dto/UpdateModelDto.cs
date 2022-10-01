@@ -14,28 +14,13 @@ namespace DnssWebApi.Dto
         //[Required]
         //public int ID { get; set; }
 
-        [Required]
-        public bool Inaktiv { get; set; }
+        //[Required]
+        //public int Minimum { get; set; }
+
+        //[Required]
+        //public int Maximum { get; set; }
 
         [Required]
-        public float Minimum { get; set; }
-
-        [Required]
-        public float Maximum { get; set; }
-
-        [Required]
-        public string Propertiers { get; set; }
-
-        [Required]
-        public string Type { get; set; }
-
-        [Required]
-        public float Resolution { get; set; }
-
-        [Required]
-        public string Unit { get; set; }
-
-        [Required]
-        public float Value { get; set; }
+        public int Value { get; set; }
     }
 }

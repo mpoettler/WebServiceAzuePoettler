@@ -7,6 +7,6 @@ namespace DnssWebApi.Dto
 {
     public class AdmaModelSendingJustValueDto
     {
-        public float Value { get; set; }
+        public int Value { get; set; }
     }
 }

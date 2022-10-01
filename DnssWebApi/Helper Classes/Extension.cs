@@ -17,15 +17,9 @@ namespace DnssWebApi
 
             return new AdmaModel
             {
-                ID = model.ID,
-                Default = model.Default,
-                Inaktiv = model.Inaktiv,
+                ID = model.ID,               
                 Minimum = model.Minimum,
-                Maximum = model.Maximum,
-                Propertiers = model.Propertiers,
-                Type = model.Type,
-                Resolution = model.Resolution,
-                Unit = model.Unit,
+                Maximum = model.Maximum,              
                 Value = model.Value
             };
         }

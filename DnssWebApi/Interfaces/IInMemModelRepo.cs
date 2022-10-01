@@ -1,4 +1,5 @@
 ﻿using DnssWebApi.Model;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,11 +7,11 @@ namespace DnssWebApi
 {
     public interface IInMemModelRepo
     {
-        Task <AdmaModel> GetModel(int id);
-        Task <IEnumerable<AdmaModel>> GetModels();
-        Task <AdmaModel> GetVersion(string type);
-        Task CreateModel(AdmaModel model);
-        Task UpdateModel(AdmaModel model);
-        Task DeleteModel(int id);
+        AdmaModel GetModel(int id);
+        void CreateModel(AdmaModel model);
+        void UpdateModel(AdmaModel model);
+        void DeleteModel(int id);
+
+        public IEnumerable<AdmaModel> GetAllModels(IConfiguration configuration);
     }
 }

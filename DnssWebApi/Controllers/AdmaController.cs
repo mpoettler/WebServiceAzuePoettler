@@ -2,6 +2,8 @@
 using DnssWebApi.Interfaces;
 using DnssWebApi.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -17,14 +19,16 @@ namespace DnssWebApi.Controllers
     [Route("api")]
     public class AdmaController : ControllerBase
     {
-        private readonly IInMemModelRepo repository;
+        private readonly IInMemModelRepo _repsoitory;
         private readonly ILogger<AdmaController> logger;
+        private readonly IConfiguration configuration;
 
 
-        public AdmaController(IInMemModelRepo repository, ILogger<AdmaController> logger)
+        public AdmaController(IInMemModelRepo repository, ILogger<AdmaController> logger, IConfiguration configuration)
         {
-            this.repository = repository;
+            _repsoitory = repository;
             this.logger = logger;
+            this.configuration = configuration;
         }
 
         /// <summary>
@@ -32,27 +36,73 @@ namespace DnssWebApi.Controllers
         /// </summary>
         /// <returns>Returns all the current Models</returns>
         [HttpGet]
-        public async Task<IEnumerable<AdmaModel>> GetModels()
+        public IEnumerable<AdmaModel> GetModels()
         {
-            //await Properties.StartMessuarementAsync();
-            return (await repository.GetModels()).Select(model => model.AsDtoAdmaModel());
+            return GetAllModels();
         }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<AdmaModel>> GetModel(int id)
+        
+        [HttpPatch("{id}")]
+        public ActionResult UpdateModel(int id,UpdateModelDto modelDto)
         {
-            var model = await repository.GetModel(id);
-            if (model is null)
+            AdmaModel updatedItem = new()
             {
-                return NotFound();
-            }
-            return Ok(model);
+                Value = modelDto.Value
+            };
+
+            using (var connection = new SqlConnection(configuration.GetConnectionString("WebServicePoettler")))
+            {
+                var sql = $"UPDATE dbo.ModelTable SET Value = {updatedItem.Value} WHERE id = {id}";
+                connection.Open();
+                using SqlCommand command = new SqlCommand(sql, connection);
+                int i = command.ExecuteNonQuery();
+            };
+            return NoContent();
         }
 
 
+        [HttpDelete("{id}")]
+        public ActionResult DeleteModel(int id)
+        {
+
+            using (var connection = new SqlConnection(configuration.GetConnectionString("WebServicePoettler")))
+            {
+                var sql = "DELETE FROM dbo.ModelTable WHERE ID = id";
+                connection.Open();
+                using SqlCommand command = new SqlCommand(sql, connection);
+                int i = command.ExecuteNonQuery();
+            }
+            return NoContent();
+        }
+
+        private IEnumerable<AdmaModel> GetAllModels()
+        {
+            var models = new List<AdmaModel>();
+
+            using (var connection = new SqlConnection(configuration.GetConnectionString("WebServicePoettler")))
+            {
+                var sql = "SELECT id, Minimum, Maximum, Value from dbo.ModelTable";
+                connection.Open();
+                using SqlCommand command = new SqlCommand(sql, connection);
+                using SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var model = new AdmaModel()
+                    {
+                        ID = (int)reader["Id"],
+                        Minimum = (int)reader["Minimum"],
+                        Maximum = (int)reader["Maximum"],
+                        Value = (int)reader["Value"]
+                    };
+
+                    models.Add(model);
+                }
+            }
+            return models;
+        }
 
         [HttpPost]
-        public async Task<ActionResult<AdmaModelDto>> CreateModel(CreateModelDto modelDto)
+        public ActionResult CreateModel(CreateModelDto modelDto)
         {
             if (modelDto == null)
             {
@@ -61,66 +111,58 @@ namespace DnssWebApi.Controllers
 
             AdmaModel model = new()
             {
-                Default = modelDto.Default,
                 ID = modelDto.ID,
-                Inaktiv = modelDto.Inaktiv,
                 Minimum = modelDto.Minimum,
                 Maximum = modelDto.Maximum,
-                Propertiers = modelDto.Propertiers,
-                Type = modelDto.Type,
-                Resolution = modelDto.Resolution,
-                Unit = modelDto.Unit,
                 Value = modelDto.Value
             };
 
-            await repository.CreateModel(model);
+            using (var connection = new SqlConnection(configuration.GetConnectionString("WebServicePoettler")))
+            {
+                
+                var sql = $"INSERT INTO dbo.ModelTable(id, minimum, maximum, value) VALUES(@id, @minimum, @maximum, @value);";
+                connection.Open();
+                using (SqlCommand command = new SqlCommand(sql, connection))
+                {
+                    
+                    command.Parameters.AddWithValue("@id", modelDto.ID);
+                    command.Parameters.AddWithValue("@minimum", modelDto.Minimum);
+                    command.Parameters.AddWithValue("@maximum", modelDto.Maximum);
+                    command.Parameters.AddWithValue("@value", modelDto.Value);
 
+                    int i = command.ExecuteNonQuery();
+                }
+            }
             return CreatedAtAction(nameof(GetModel), new { id = model.ID }, model.AsDtoAdmaModel());
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<AdmaModelDto>> UpdateModel(int id,UpdateModelDto modelDto)
+
+        [HttpGet("{id}")]
+        public AdmaModel GetModel(int id)
         {
-            Task<AdmaModel> doesItemExist = repository.GetModel(id);
-
-            if (doesItemExist is null)
+            AdmaModel model = new AdmaModel();
+            using (var connection = new SqlConnection(configuration.GetConnectionString("WebServicePoettler")))
             {
-                return NotFound();
+                var sql = $"SELECT * FROM dbo.ModelTable WHERE id = @id";
+                using SqlCommand command = new SqlCommand(sql, connection);
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            model.ID = (int)reader["id"];
+                            model.Minimum = (int)reader["minimum"];
+                            model.Maximum = (int)reader["maximum"];
+                            model.Value = (int)reader["value"];
+                        }
+                    }
+                }  
+                //int i = command.ExecuteNonQuery();
             }
-
-            AdmaModel updatedItem = new()
-            {
-                ID = doesItemExist.Result.ID,
-                Default = doesItemExist.Result.Default,
-                Inaktiv = modelDto.Inaktiv,
-                Minimum = modelDto.Minimum,
-                Maximum = modelDto.Maximum,
-                Propertiers = modelDto.Propertiers,
-                Type = modelDto.Type,
-                Resolution = modelDto.Resolution,
-                Unit = modelDto.Unit,
-                Value = modelDto.Value
-            };
-
-            await repository.UpdateModel(updatedItem);
-
-            return NoContent();
+            return model;
         }
-
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<AdmaModelDto>> DeleteModel(int id)
-        {
-            Task<AdmaModel> doesItemExist = repository.GetModel(id);
-
-            if (doesItemExist is null)
-            {
-                return NotFound();
-            }
-
-            await repository.DeleteModel(id);
-
-            return NoContent();
-        }
-
     }
 }
+
