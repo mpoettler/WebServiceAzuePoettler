@@ -1,4 +1,12 @@
-﻿using DnssWebApi.Model;
+﻿/**
+ * Web Service Development -  FH Joanneum SS22
+ * Project: Rest Azure
+ * @author  Matthias Pöttler
+ * @version 1.0
+ * @date   04/10/2022
+**/
+
+using DnssWebApi.Model;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Threading.Tasks;

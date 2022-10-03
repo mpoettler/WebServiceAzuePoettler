@@ -1,3 +1,11 @@
+/**
+ * Web Service Development -  FH Joanneum SS22
+ * Project: Rest Azure
+ * @author  Matthias Pöttler
+ * @version 1.0
+ * @date   20/06/2022
+**/
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +21,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
-
 
 namespace DnssWebApi
 {
@@ -39,7 +46,6 @@ namespace DnssWebApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
-
             //services.AddDbContext<TodoContext>(options => options.UseInMemoryDatabase("TodoList"));
         }
 

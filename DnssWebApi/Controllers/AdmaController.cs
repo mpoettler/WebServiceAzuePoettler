@@ -1,4 +1,12 @@
-﻿using DnssWebApi.Dto;
+﻿/**
+ * Web Service Development -  FH Joanneum SS22
+ * Project: Rest Azure
+ * @author  Matthias Pöttler
+ * @version 1.0
+ * @date   04/10/2022
+**/
+
+using DnssWebApi.Dto;
 using DnssWebApi.Interfaces;
 using DnssWebApi.Model;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +17,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+
 
 namespace DnssWebApi.Controllers
 {
@@ -31,10 +41,6 @@ namespace DnssWebApi.Controllers
             this.configuration = configuration;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>Returns all the current Models</returns>
         [HttpGet]
         public IEnumerable<AdmaModel> GetModels()
         {
@@ -63,6 +69,7 @@ namespace DnssWebApi.Controllers
         [HttpDelete("{id}")]
         public ActionResult DeleteModel(int id)
         {
+
 
             using (var connection = new SqlConnection(configuration.GetConnectionString("WebServicePoettler")))
             {
@@ -101,7 +108,7 @@ namespace DnssWebApi.Controllers
             return models;
         }
 
-        [HttpPost]
+        [HttpPost("{id}")]
         public ActionResult CreateModel(CreateModelDto modelDto)
         {
             if (modelDto == null)
@@ -119,7 +126,6 @@ namespace DnssWebApi.Controllers
 
             using (var connection = new SqlConnection(configuration.GetConnectionString("WebServicePoettler")))
             {
-                
                 var sql = $"INSERT INTO dbo.ModelTable(id, minimum, maximum, value) VALUES(@id, @minimum, @maximum, @value);";
                 connection.Open();
                 using (SqlCommand command = new SqlCommand(sql, connection))
