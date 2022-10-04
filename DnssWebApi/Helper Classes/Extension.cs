@@ -1,4 +1,12 @@
-﻿using DnssWebApi.Dto;
+﻿/**
+ * Web Service Development -  FH Joanneum SS22
+ * Project: Rest Azure
+ * @author  Matthias Pöttler
+ * @version 1.0
+ * @date   4/10/2022
+**/
+
+using DnssWebApi.Dto;
 using DnssWebApi.Model;
 using System;
 using System.Collections.Generic;
@@ -7,6 +15,9 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
+/// <summary>
+/// Extension Methods to change Model into DTO models and Not used Extensions Methods to check if the Request was sucessfull
+/// </summary>
 namespace DnssWebApi
 {
     public static class Extension

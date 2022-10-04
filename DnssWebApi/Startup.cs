@@ -3,7 +3,7 @@
  * Project: Rest Azure
  * @author  Matthias Pöttler
  * @version 1.0
- * @date   20/06/2022
+ * @date   4/10/2022
 **/
 
 using System;
@@ -46,7 +46,6 @@ namespace DnssWebApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
-            //services.AddDbContext<TodoContext>(options => options.UseInMemoryDatabase("TodoList"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,8 +65,6 @@ namespace DnssWebApi
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            //app.UseHttpsRedirection();
 
             app.UseDefaultFiles();
 

@@ -2,7 +2,7 @@
 # Web Service Development - C# Rest Azure by Matthias Pöttler
 
 ## Install/Run instructions 
-- clone the Project from https://github.com/mpoettler/WebServiceAzuePoettler.git or https://mpoettler@webservicepoettler.scm.azurewebsites.net/WebservicePoettler.git .
+- clone the Project from https://github.com/mpoettler/WebServiceAzuePoettler.git or https://mpoettler@webservicepoettler.scm.azurewebsites.net/WebservicePoettler.git.
 - The Project can be opend in Visual Studio or Visual Studio Code.
 - To open the swagger Site you can just run the Project or just open https://webservicepoettler.azurewebsites.net/swagger/index.html in your Browser.
 
@@ -26,6 +26,7 @@ This App is a simpler Version to store some values AdmaModel(GNSS System) into a
 - Authentication is missing
 - more Error Handling
 - Frontend is missing
+- SQL Dump fehlt da Kompliziert auf Azure
 
 ## Sources
 

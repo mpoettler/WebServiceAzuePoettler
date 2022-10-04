@@ -22,9 +22,7 @@ using System.Threading.Tasks;
 
 namespace DnssWebApi.Controllers
 {
-    /// <summary>
-    /// 
-    /// </summary>
+
     [ApiController]
     [Route("api")]
     public class AdmaController : ControllerBase
@@ -41,12 +39,20 @@ namespace DnssWebApi.Controllers
             this.configuration = configuration;
         }
 
+        /// <summary>
+        /// Method to retrun all the Models from the Azure Database and show it in swagger
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IEnumerable<AdmaModel> GetModels()
         {
             return GetAllModels();
         }
-        
+
+        /// <summary>
+        /// Method that Updates the Adma Model in the Azure Database
+        /// </summary>
+        /// <returns></returns>
         [HttpPatch("{id}")]
         public ActionResult UpdateModel(int id,UpdateModelDto modelDto)
         {
@@ -65,15 +71,17 @@ namespace DnssWebApi.Controllers
             return NoContent();
         }
 
-
+        /// <summary>
+        /// Deletes an Model from the SQL Database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public ActionResult DeleteModel(int id)
         {
-
-
             using (var connection = new SqlConnection(configuration.GetConnectionString("WebServicePoettler")))
             {
-                var sql = "DELETE FROM dbo.ModelTable WHERE ID = id";
+                var sql = $"DELETE FROM dbo.ModelTable WHERE ID = {id}";
                 connection.Open();
                 using SqlCommand command = new SqlCommand(sql, connection);
                 int i = command.ExecuteNonQuery();
@@ -81,6 +89,10 @@ namespace DnssWebApi.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// GEt every Model from the Azure database
+        /// </summary>
+        /// <returns></returns>
         private IEnumerable<AdmaModel> GetAllModels()
         {
             var models = new List<AdmaModel>();
@@ -108,6 +120,11 @@ namespace DnssWebApi.Controllers
             return models;
         }
 
+        /// <summary>
+        /// Creates a new MOdel and saves it in the AZure Database
+        /// </summary>
+        /// <param name="modelDto"></param>
+        /// <returns></returns>
         [HttpPost("{id}")]
         public ActionResult CreateModel(CreateModelDto modelDto)
         {
@@ -142,7 +159,11 @@ namespace DnssWebApi.Controllers
             return CreatedAtAction(nameof(GetModel), new { id = model.ID }, model.AsDtoAdmaModel());
         }
 
-
+        /// <summary>
+        /// Get a Spezific model from the Azure Database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public AdmaModel GetModel(int id)
         {
